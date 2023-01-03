@@ -1,13 +1,16 @@
+use lazy_static::lazy_static;
+
 use normal::prelude::*;
 
+lazy_static! {
+    static ref STATIC_RE: String = "this is an example"
+        .then(NEWLINE)
+        .then("of a static regex")
+        .then(NEWLINE);
+}
+
 fn main() {
-    println!(
-        "{}",
-        "this is an example"
-            .then(NEWLINE)
-            .then("of then")
-            .then(NEWLINE)
-    );
+    println!("{}", *STATIC_RE);
 
     println!(
         "{}",
