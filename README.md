@@ -50,7 +50,7 @@ Syntax cheat sheet taken from [debuggex.com](https://www.debuggex.com/cheatsheet
   - [x] Named - `(?P<name>...)`
   - [x] Non capturing - `(?...)`
   - [x] Atomic - `(?>...)`
-  - [ ] Duplicate numbers - `(?|...)`
+  - [x] Branch reset groups - `(?|...)`
   - [ ] Match capture group by number - `\Y`
   - [ ] Match capture group by name - `(?P=name)`
   - [ ] Match capture group by name or number - `\g{Y}`

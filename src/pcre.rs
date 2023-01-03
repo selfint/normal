@@ -38,6 +38,10 @@ pub fn atomic_group(expr: impl Into<String>) -> String {
     "(?>".to_string() + &expr.into() + ")"
 }
 
+pub fn branch_reset_group(expr: impl Into<String>) -> String {
+    "(?|".to_string() + &expr.into() + ")"
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -85,5 +89,10 @@ mod tests {
     #[test]
     fn test_atomic_group() {
         assert_eq!("(?>abc)", atomic_group("abc"));
+    }
+
+    #[test]
+    fn test_branch_reset_group() {
+        assert_eq!("(?|abc)", branch_reset_group("abc"));
     }
 }

@@ -55,6 +55,10 @@ macro_rules! implement_expression {
             fn then_atomic_group(&self, expr: E) -> Self::Output {
                 self.then(atomic_group(expr))
             }
+
+            fn then_branch_reset_group(&self, expr: E) -> Self::Output {
+                self.then(branch_reset_group(expr))
+            }
         }
     };
 }

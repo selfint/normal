@@ -17,4 +17,5 @@ where
     fn then_named_group(&self, name: impl Into<String>, expr: E) -> Self::Output;
     fn then_non_capturing_group(&self, expr: E) -> Self::Output;
     fn then_atomic_group(&self, expr: E) -> Self::Output;
+    fn then_branch_reset_group(&self, expr: E) -> Self::Output;
 }
