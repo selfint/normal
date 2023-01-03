@@ -2,6 +2,12 @@
 
 A simple library for writing readable regular expressions.
 
+Writing regular expressions isn't (usually) an often occurrence. The goal of this library
+is to make reading/writing regular expressions easier, now and in the future, and not needing to remember/re-learn the PCRE syntax each time.
+
+In the future, maybe adding full documentation to all the methods/constants can make this
+library a way to also learn PCRE syntax.
+
 ## Example
 
 ```rs
