@@ -33,6 +33,7 @@ pub trait Expression {
     fn then_repeated_at_least(self, next: impl Into<String>, min: u32) -> String;
     fn then_group(self, group: impl Into<String>) -> String;
     fn then_named_group(self, group: impl Into<String>, name: impl Into<String>) -> String;
+    fn then_non_capturing_group(self, group: impl Into<String>) -> String;
 }
 
 impl Expression for &str {
@@ -74,6 +75,10 @@ impl Expression for &str {
 
     fn then_named_group(self, group: impl Into<String>, name: impl Into<String>) -> String {
         self.to_string() + "(?P<" + &name.into() + ">" + &group.into() + ")"
+    }
+
+    fn then_non_capturing_group(self, group: impl Into<String>) -> String {
+        self.to_string() + "(?:" + &group.into() + ")"
     }
 }
 
@@ -164,6 +169,15 @@ mod tests {
         let expected = "(?P<group>abc)";
 
         let actual = "".then_named_group("abc", "group");
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_named_non_capturing_group() {
+        let expected = "(?:abc)";
+
+        let actual = "".then_non_capturing_group("abc");
 
         assert_eq!(expected, actual);
     }
