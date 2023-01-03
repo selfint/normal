@@ -3,6 +3,10 @@ trait Expression {
     fn or(self, other: impl Into<String>) -> String;
     fn then_repeated(self, next: impl Into<String>) -> String;
     fn then_at_least_once(self, next: impl Into<String>) -> String;
+    fn then_optional(self, next: impl Into<String>) -> String;
+    fn then_repeated_exactly(self, next: impl Into<String>, amount: u32) -> String;
+    fn then_repeated_between(self, next: impl Into<String>, min: u32, max: u32) -> String;
+    fn then_repeated_at_least(self, next: impl Into<String>, min: u32) -> String;
 }
 
 impl Expression for &str {
@@ -20,6 +24,22 @@ impl Expression for &str {
 
     fn then_at_least_once(self, next: impl Into<String>) -> String {
         self.to_string() + &next.into() + "+"
+    }
+
+    fn then_optional(self, next: impl Into<String>) -> String {
+        self.to_string() + &next.into() + "?"
+    }
+
+    fn then_repeated_exactly(self, next: impl Into<String>, amount: u32) -> String {
+        self.to_string() + &next.into() + "{" + &amount.to_string() + "}"
+    }
+
+    fn then_repeated_between(self, next: impl Into<String>, min: u32, max: u32) -> String {
+        self.to_string() + &next.into() + "{" + &min.to_string() + "," + &max.to_string() + "}"
+    }
+
+    fn then_repeated_at_least(self, next: impl Into<String>, min: u32) -> String {
+        self.to_string() + &next.into() + "{" + &min.to_string() + ",}"
     }
 }
 
@@ -65,6 +85,33 @@ mod tests {
         let expected = "a+";
 
         let actual = "".then_at_least_once("a");
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_repeated_exactly() {
+        let expected = "a{2}";
+
+        let actual = "".then_repeated_exactly("a", 2);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_repeated_between() {
+        let expected = "a{2,5}";
+
+        let actual = "".then_repeated_between("a", 2, 5);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_repeated_at_least() {
+        let expected = "a{2,}";
+
+        let actual = "".then_repeated_at_least("a", 2);
 
         assert_eq!(expected, actual);
     }
