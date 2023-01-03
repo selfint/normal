@@ -34,6 +34,7 @@ pub trait Expression {
     fn then_group(self, group: impl Into<String>) -> String;
     fn then_named_group(self, group: impl Into<String>, name: impl Into<String>) -> String;
     fn then_non_capturing_group(self, group: impl Into<String>) -> String;
+    fn then_atomic_group(self, group: impl Into<String>) -> String;
 }
 
 impl Expression for &str {
@@ -79,6 +80,10 @@ impl Expression for &str {
 
     fn then_non_capturing_group(self, group: impl Into<String>) -> String {
         self.to_string() + "(?:" + &group.into() + ")"
+    }
+
+    fn then_atomic_group(self, group: impl Into<String>) -> String {
+        self.to_string() + "(?>" + &group.into() + ")"
     }
 }
 
@@ -178,6 +183,15 @@ mod tests {
         let expected = "(?:abc)";
 
         let actual = "".then_non_capturing_group("abc");
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_atomic_group() {
+        let expected = "(?>abc)";
+
+        let actual = "".then_atomic_group("abc");
 
         assert_eq!(expected, actual);
     }
