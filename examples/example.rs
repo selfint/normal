@@ -15,23 +15,25 @@ fn main() {
     println!(
         "{}",
         "this is an example".then_named_group(
+            "name",
             "of a group named name"
                 .then_non_capturing_group("with a non capturing group inside it"),
-            "name"
         )
     );
 
     println!(
         "{}",
-        "this is an example".then_repeated_between(
-            named_group(
-                "of a group named name"
-                    .then_non_capturing_group("with a non capturing group inside it")
-                    .then("that is repeated between 2 to 5 times"),
-                "name"
-            ),
-            2,
-            5
-        )
+        "this is an example"
+            .then_repeated_between(
+                2,
+                5,
+                named_group(
+                    "name",
+                    "of a group named name"
+                        .then_non_capturing_group("with a non capturing group inside it")
+                        .then("that is repeated between 2 to 5 times")
+                ),
+            )
+            .then(NEWLINE)
     );
 }
