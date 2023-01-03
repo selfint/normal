@@ -31,6 +31,7 @@ pub trait Expression {
     fn then_repeated_exactly(self, next: impl Into<String>, amount: u32) -> String;
     fn then_repeated_between(self, next: impl Into<String>, min: u32, max: u32) -> String;
     fn then_repeated_at_least(self, next: impl Into<String>, min: u32) -> String;
+    fn then_group(self, group: impl Into<String>) -> String;
 }
 
 impl Expression for &str {
@@ -64,6 +65,10 @@ impl Expression for &str {
 
     fn then_repeated_at_least(self, next: impl Into<String>, min: u32) -> String {
         self.to_string() + &next.into() + "{" + &min.to_string() + ",}"
+    }
+
+    fn then_group(self, group: impl Into<String>) -> String {
+        self.to_string() + "(" + &group.into() + ")"
     }
 }
 
@@ -136,6 +141,15 @@ mod tests {
         let expected = "a{2,}";
 
         let actual = "".then_repeated_at_least("a", 2);
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_group() {
+        let expected = "(abc)";
+
+        let actual = "".then_group("abc");
 
         assert_eq!(expected, actual);
     }
