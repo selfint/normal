@@ -25,8 +25,8 @@ pub const ESCAPE: &str = "\\e";
 pub trait Expression {
     fn then(&self, expr: impl Into<String>) -> String;
 
-    fn or(&self, other: impl Into<String>) -> String {
-        self.then("|".to_string() + &other.into())
+    fn or(&self, expr: impl Into<String>) -> String {
+        self.then("|".to_string() + &expr.into())
     }
 
     fn then_repeated(&self, expr: impl Into<String>) -> String {
@@ -41,24 +41,24 @@ pub trait Expression {
         self.then(optional(expr))
     }
 
-    fn then_repeated_exactly(&self, expr: impl Into<String>, amount: u32) -> String {
-        self.then(repeated_exactly(expr, amount))
+    fn then_repeated_exactly(&self, amount: u32, expr: impl Into<String>) -> String {
+        self.then(repeated_exactly(amount, expr))
     }
 
-    fn then_repeated_between(&self, expr: impl Into<String>, min: u32, max: u32) -> String {
-        self.then(repeated_between(expr, min, max))
+    fn then_repeated_between(&self, min: u32, max: u32, expr: impl Into<String>) -> String {
+        self.then(repeated_between(min, max, expr))
     }
 
-    fn then_repeated_at_least(&self, expr: impl Into<String>, min: u32) -> String {
-        self.then(repeated_at_least(expr, min))
+    fn then_repeated_at_least(&self, min: u32, expr: impl Into<String>) -> String {
+        self.then(repeated_at_least(min, expr))
     }
 
     fn then_group(&self, expr: impl Into<String>) -> String {
         self.then(group(expr))
     }
 
-    fn then_named_group(&self, expr: impl Into<String>, name: impl Into<String>) -> String {
-        self.then(named_group(expr, name))
+    fn then_named_group(&self, name: impl Into<String>, expr: impl Into<String>) -> String {
+        self.then(named_group(name, expr))
     }
 
     fn then_non_capturing_group(&self, expr: impl Into<String>) -> String {
@@ -82,15 +82,15 @@ pub fn optional(expr: impl Into<String>) -> String {
     expr.into() + "?"
 }
 
-pub fn repeated_exactly(expr: impl Into<String>, amount: u32) -> String {
+pub fn repeated_exactly(amount: u32, expr: impl Into<String>) -> String {
     expr.into() + "{" + &amount.to_string() + "}"
 }
 
-pub fn repeated_between(expr: impl Into<String>, min: u32, max: u32) -> String {
+pub fn repeated_between(min: u32, max: u32, expr: impl Into<String>) -> String {
     expr.into() + "{" + &min.to_string() + "," + &max.to_string() + "}"
 }
 
-pub fn repeated_at_least(expr: impl Into<String>, min: u32) -> String {
+pub fn repeated_at_least(min: u32, expr: impl Into<String>) -> String {
     expr.into() + "{" + &min.to_string() + ",}"
 }
 
@@ -98,16 +98,16 @@ pub fn group(expr: impl Into<String>) -> String {
     "(".to_string() + &expr.into() + ")"
 }
 
-pub fn named_group(group: impl Into<String>, name: impl Into<String>) -> String {
-    "(?P<".to_string() + &name.into() + ">" + &group.into() + ")"
+pub fn named_group(name: impl Into<String>, expr: impl Into<String>) -> String {
+    "(?P<".to_string() + &name.into() + ">" + &expr.into() + ")"
 }
 
-pub fn non_capturing_group(group: impl Into<String>) -> String {
-    "(?:".to_string() + &group.into() + ")"
+pub fn non_capturing_group(expr: impl Into<String>) -> String {
+    "(?:".to_string() + &expr.into() + ")"
 }
 
-pub fn atomic_group(group: impl Into<String>) -> String {
-    "(?>".to_string() + &group.into() + ")"
+pub fn atomic_group(expr: impl Into<String>) -> String {
+    "(?>".to_string() + &expr.into() + ")"
 }
 
 #[cfg(test)]
@@ -131,17 +131,17 @@ mod tests {
 
     #[test]
     fn test_repeated_exactly() {
-        assert_eq!("a{2}", repeated_exactly("a", 2));
+        assert_eq!("a{2}", repeated_exactly(2, "a"));
     }
 
     #[test]
     fn test_repeated_between() {
-        assert_eq!("a{2,5}", repeated_between("a", 2, 5));
+        assert_eq!("a{2,5}", repeated_between(2, 5, "a",));
     }
 
     #[test]
     fn test_repeated_at_least() {
-        assert_eq!("a{2,}", repeated_at_least("a", 2));
+        assert_eq!("a{2,}", repeated_at_least(2, "a"));
     }
 
     #[test]
@@ -151,7 +151,7 @@ mod tests {
 
     #[test]
     fn test_named_group() {
-        assert_eq!("(?P<group>abc)", named_group("abc", "group"));
+        assert_eq!("(?P<group>abc)", named_group("group", "abc"));
     }
 
     #[test]
