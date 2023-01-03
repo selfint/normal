@@ -2,6 +2,7 @@ trait Expression {
     fn then(self, next: impl Into<String>) -> String;
     fn or(self, other: impl Into<String>) -> String;
     fn then_repeated(self, next: impl Into<String>) -> String;
+    fn then_at_least_once(self, next: impl Into<String>) -> String;
 }
 
 impl Expression for &str {
@@ -15,6 +16,10 @@ impl Expression for &str {
 
     fn then_repeated(self, next: impl Into<String>) -> String {
         self.to_string() + &next.into() + "*"
+    }
+
+    fn then_at_least_once(self, next: impl Into<String>) -> String {
+        self.to_string() + &next.into() + "+"
     }
 }
 
@@ -51,6 +56,15 @@ mod tests {
         let expected = "a*";
 
         let actual = "".then_repeated("a");
+
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_then_at_least_once() {
+        let expected = "a+";
+
+        let actual = "".then_at_least_once("a");
 
         assert_eq!(expected, actual);
     }
