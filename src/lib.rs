@@ -1,10 +1,15 @@
 trait Expression {
     fn then(self, next: impl Into<String>) -> String;
+    fn or(self, other: impl Into<String>) -> String;
 }
 
 impl Expression for &str {
     fn then(self, next: impl Into<String>) -> String {
         Into::<String>::into(self) + &next.into()
+    }
+
+    fn or(self, other: impl Into<String>) -> String {
+        Into::<String>::into(self) + "|" + &other.into()
     }
 }
 
@@ -25,5 +30,14 @@ mod tests {
         assert_eq!(expected, actual_string_1);
         assert_eq!(expected, actual_string_2);
         assert_eq!(expected, actual_string_3);
+    }
+
+    #[test]
+    fn test_or() {
+        let expected = "a|b";
+
+        let actual = "a".or("b");
+
+        assert_eq!(expected, actual);
     }
 }
