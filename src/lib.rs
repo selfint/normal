@@ -108,91 +108,51 @@ mod tests {
 
     #[test]
     fn test_or() {
-        let expected = "a|b";
-
-        let actual = "a".or("b");
-
-        assert_eq!(expected, actual);
+        assert_eq!("a|b", "a".or("b"));
     }
 
     #[test]
     fn test_then_repeated() {
-        let expected = "a*";
-
-        let actual = "".then_repeated("a");
-
-        assert_eq!(expected, actual);
+        assert_eq!("a*", "".then_repeated("a"));
     }
 
     #[test]
     fn test_then_at_least_once() {
-        let expected = "a+";
-
-        let actual = "".then_at_least_once("a");
-
-        assert_eq!(expected, actual);
+        assert_eq!("a+", "".then_at_least_once("a"));
     }
 
     #[test]
     fn test_then_repeated_exactly() {
-        let expected = "a{2}";
-
-        let actual = "".then_repeated_exactly("a", 2);
-
-        assert_eq!(expected, actual);
+        assert_eq!("a{2}", "".then_repeated_exactly("a", 2));
     }
 
     #[test]
     fn test_then_repeated_between() {
-        let expected = "a{2,5}";
-
-        let actual = "".then_repeated_between("a", 2, 5);
-
-        assert_eq!(expected, actual);
+        assert_eq!("a{2,5}", "".then_repeated_between("a", 2, 5));
     }
 
     #[test]
     fn test_then_repeated_at_least() {
-        let expected = "a{2,}";
-
-        let actual = "".then_repeated_at_least("a", 2);
-
-        assert_eq!(expected, actual);
+        assert_eq!("a{2,}", "".then_repeated_at_least("a", 2));
     }
 
     #[test]
     fn test_then_group() {
-        let expected = "(abc)";
-
-        let actual = "".then_group("abc");
-
-        assert_eq!(expected, actual);
+        assert_eq!("(abc)", "".then_group("abc"));
     }
 
     #[test]
     fn test_then_named_group() {
-        let expected = "(?P<group>abc)";
-
-        let actual = "".then_named_group("abc", "group");
-
-        assert_eq!(expected, actual);
+        assert_eq!("(?P<group>abc)", "".then_named_group("abc", "group"));
     }
 
     #[test]
     fn test_then_named_non_capturing_group() {
-        let expected = "(?:abc)";
-
-        let actual = "".then_non_capturing_group("abc");
-
-        assert_eq!(expected, actual);
+        assert_eq!("(?:abc)", "".then_non_capturing_group("abc"));
     }
 
     #[test]
     fn test_then_atomic_group() {
-        let expected = "(?>abc)";
-
-        let actual = "".then_atomic_group("abc");
-
-        assert_eq!(expected, actual);
+        assert_eq!("(?>abc)", "".then_atomic_group("abc"));
     }
 }
