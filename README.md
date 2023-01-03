@@ -45,8 +45,8 @@ Syntax cheat sheet taken from [debuggex.com](https://www.debuggex.com/cheatsheet
   - [x] Non capturing - `(?...)`
   - [x] Atomic - `(?>...)`
   - [ ] Duplicate numbers - `(?|...)`
-  - [x] Match capture group by number - `\Y`
-  - [x] Match capture group by name - `(?P=name)`
+  - [ ] Match capture group by number - `\Y`
+  - [ ] Match capture group by name - `(?P=name)`
   - [ ] Match capture group by name or number - `\g{Y}`
   - [ ] Recurse into pattern - `(?R)`
   - [ ] Recurse into group by number - `(?Y)`
