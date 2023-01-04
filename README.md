@@ -60,9 +60,9 @@ Syntax cheat sheet taken from [debuggex.com](https://www.debuggex.com/cheatsheet
   - [x] Recurse into group by name or number - `\g<Y>`
   - [ ] Comment - `(?#...)` (do we need this?)
 - [x] Constants
-- [ ] Assertions:
-  - [ ] Positive lookahead - `(?=...)`
-  - [ ] Negative lookahead - `(?!...)`
-  - [ ] Positive lookbehind - `(?<=...)`
-  - [ ] Negative lookbehind - `(?<!...)`
-  - [ ] Conditional - `(?()|)`
+- [x] Assertions:
+  - [x] Positive lookahead - `(?=...)`
+  - [x] Negative lookahead - `(?!...)`
+  - [x] Positive lookbehind - `(?<=...)`
+  - [x] Negative lookbehind - `(?<!...)`
+  - [x] Conditional - `(?()|)`

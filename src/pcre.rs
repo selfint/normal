@@ -70,6 +70,30 @@ pub fn recurse_into_nth_or_named_group(n_or_name: impl Into<String>) -> String {
     "\\g<".to_string() + &n_or_name.into() + ">"
 }
 
+pub fn positive_lookahead(expr: impl Into<String>) -> String {
+    "(?=".to_string() + &expr.into() + ")"
+}
+
+pub fn negative_lookahead(expr: impl Into<String>) -> String {
+    "(?!".to_string() + &expr.into() + ")"
+}
+
+pub fn positive_lookbehind(expr: impl Into<String>) -> String {
+    "(?<=".to_string() + &expr.into() + ")"
+}
+
+pub fn negative_lookbehind(expr: impl Into<String>) -> String {
+    "(?<!".to_string() + &expr.into() + ")"
+}
+
+pub fn conditional(
+    if_: impl Into<String>,
+    then: impl Into<String>,
+    else_: impl Into<String>,
+) -> String {
+    "(?(".to_string() + &if_.into() + ")" + &then.into() + "|" + &else_.into() + ")"
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -163,5 +187,30 @@ mod tests {
             "\\g<name_or_number>",
             recurse_into_nth_or_named_group("name_or_number")
         );
+    }
+
+    #[test]
+    fn test_positive_lookahead() {
+        assert_eq!("(?=abc)", positive_lookahead("abc"))
+    }
+
+    #[test]
+    fn test_negative_lookahead() {
+        assert_eq!("(?!abc)", negative_lookahead("abc"))
+    }
+
+    #[test]
+    fn test_positive_lookbehind() {
+        assert_eq!("(?<=abc)", positive_lookbehind("abc"))
+    }
+
+    #[test]
+    fn test_negative_lookbehind() {
+        assert_eq!("(?<!abc)", negative_lookbehind("abc"))
+    }
+
+    #[test]
+    fn test_conditional() {
+        assert_eq!("(?(if)then|else)", conditional("if", "then", "else"))
     }
 }
