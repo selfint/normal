@@ -91,23 +91,23 @@ macro_rules! implement_expression {
                 self.then(recurse_into_nth_or_named_group(n_or_name))
             }
 
-            fn positive_lookahead(&self, expr: impl Into<String>) -> Self::Output {
+            fn then_positive_lookahead(&self, expr: impl Into<String>) -> Self::Output {
                 self.then(positive_lookahead(expr))
             }
 
-            fn negative_lookahead(&self, expr: impl Into<String>) -> Self::Output {
+            fn then_negative_lookahead(&self, expr: impl Into<String>) -> Self::Output {
                 self.then(negative_lookahead(expr))
             }
 
-            fn positive_lookbehind(&self, expr: impl Into<String>) -> Self::Output {
+            fn then_positive_lookbehind(&self, expr: impl Into<String>) -> Self::Output {
                 self.then(positive_lookahead(expr))
             }
 
-            fn negative_lookbehind(&self, expr: impl Into<String>) -> Self::Output {
+            fn then_negative_lookbehind(&self, expr: impl Into<String>) -> Self::Output {
                 self.then(negative_lookahead(expr))
             }
 
-            fn conditional(
+            fn then_conditional(
                 &self,
                 if_: impl Into<String>,
                 then: impl Into<String>,

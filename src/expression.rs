@@ -25,11 +25,11 @@ where
     fn then_recurse_into_nth_group(&self, n: u32) -> Self::Output;
     fn then_recurse_into_named_group(&self, name: impl Into<String>) -> Self::Output;
     fn then_recurse_nth_or_named_group(&self, n_or_name: impl Into<String>) -> Self::Output;
-    fn positive_lookahead(&self, expr: impl Into<String>) -> Self::Output;
-    fn negative_lookahead(&self, expr: impl Into<String>) -> Self::Output;
-    fn positive_lookbehind(&self, expr: impl Into<String>) -> Self::Output;
-    fn negative_lookbehind(&self, expr: impl Into<String>) -> Self::Output;
-    fn conditional(
+    fn then_positive_lookahead(&self, expr: impl Into<String>) -> Self::Output;
+    fn then_negative_lookahead(&self, expr: impl Into<String>) -> Self::Output;
+    fn then_positive_lookbehind(&self, expr: impl Into<String>) -> Self::Output;
+    fn then_negative_lookbehind(&self, expr: impl Into<String>) -> Self::Output;
+    fn then_conditional(
         &self,
         if_: impl Into<String>,
         then: impl Into<String>,
