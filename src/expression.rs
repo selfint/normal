@@ -18,4 +18,11 @@ where
     fn then_non_capturing_group(&self, expr: E) -> Self::Output;
     fn then_atomic_group(&self, expr: E) -> Self::Output;
     fn then_branch_reset_group(&self, expr: E) -> Self::Output;
+    fn then_match_nth_group(&self, n: u32) -> Self::Output;
+    fn then_match_named_group(&self, name: impl Into<String>) -> Self::Output;
+    fn then_match_nth_or_named_group(&self, n_or_name: impl Into<String>) -> Self::Output;
+    fn then_recurse_into(&self, expr: impl Into<String>) -> Self::Output;
+    fn then_recurse_into_nth_group(&self, n: u32) -> Self::Output;
+    fn then_recurse_into_named_group(&self, name: impl Into<String>) -> Self::Output;
+    fn then_recurse_nth_or_named_group(&self, n_or_name: impl Into<String>) -> Self::Output;
 }

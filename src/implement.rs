@@ -59,6 +59,37 @@ macro_rules! implement_expression {
             fn then_branch_reset_group(&self, expr: E) -> Self::Output {
                 self.then(branch_reset_group(expr))
             }
+
+            fn then_match_nth_group(&self, n: u32) -> Self::Output {
+                self.then(match_nth_group(n))
+            }
+
+            fn then_match_named_group(&self, name: impl Into<String>) -> Self::Output {
+                self.then(match_named_group(name))
+            }
+
+            fn then_match_nth_or_named_group(&self, n_or_name: impl Into<String>) -> Self::Output {
+                self.then(match_nth_or_named_group(n_or_name))
+            }
+
+            fn then_recurse_into(&self, expr: impl Into<String>) -> Self::Output {
+                self.then(recurse_into(expr))
+            }
+
+            fn then_recurse_into_nth_group(&self, n: u32) -> Self::Output {
+                self.then(recurse_into_nth_group(n))
+            }
+
+            fn then_recurse_into_named_group(&self, name: impl Into<String>) -> Self::Output {
+                self.then(recurse_into_named_group(name))
+            }
+
+            fn then_recurse_nth_or_named_group(
+                &self,
+                n_or_name: impl Into<String>,
+            ) -> Self::Output {
+                self.then(recurse_into_nth_or_named_group(n_or_name))
+            }
         }
     };
 }

@@ -45,19 +45,19 @@ Syntax cheat sheet taken from [debuggex.com](https://www.debuggex.com/cheatsheet
   - [x] {amount}
   - [x] {min,max}
   - [x] {min,}
-- [ ] Groups:
+- [x] Groups:
   - [x] Un-named - `(...)`
   - [x] Named - `(?P<name>...)`
   - [x] Non capturing - `(?...)`
   - [x] Atomic - `(?>...)`
   - [x] Branch reset groups - `(?|...)`
-  - [ ] Match capture group by number - `\Y`
-  - [ ] Match capture group by name - `(?P=name)`
-  - [ ] Match capture group by name or number - `\g{Y}`
-  - [ ] Recurse into pattern - `(?R)`
-  - [ ] Recurse into group by number - `(?Y)`
-  - [ ] Recurse into group by name - `(?&name)`
-  - [ ] Recurse into group by name or number - `\g<Y>`
+  - [x] Match capture group by number - `\Y`
+  - [x] Match capture group by name - `(?P=name)`
+  - [x] Match capture group by name or number - `\g{Y}`
+  - [x] Recurse into pattern - `(?R)`
+  - [x] Recurse into group by number - `(?Y)`
+  - [x] Recurse into group by name - `(?&name)`
+  - [x] Recurse into group by name or number - `\g<Y>`
   - [ ] Comment - `(?#...)` (do we need this?)
 - [x] Constants
 - [ ] Assertions:

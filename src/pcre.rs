@@ -42,6 +42,34 @@ pub fn branch_reset_group(expr: impl Into<String>) -> String {
     "(?|".to_string() + &expr.into() + ")"
 }
 
+pub fn match_nth_group(n: u32) -> String {
+    "\\".to_string() + &n.to_string()
+}
+
+pub fn match_named_group(name: impl Into<String>) -> String {
+    "(?P=".to_string() + &name.into() + ")"
+}
+
+pub fn match_nth_or_named_group(n_or_name: impl Into<String>) -> String {
+    "\\g{".to_string() + &n_or_name.into() + "}"
+}
+
+pub fn recurse_into(expr: impl Into<String>) -> String {
+    "(?".to_string() + &expr.into() + ")"
+}
+
+pub fn recurse_into_nth_group(n: u32) -> String {
+    "(?".to_string() + &n.to_string() + ")"
+}
+
+pub fn recurse_into_named_group(name: impl Into<String>) -> String {
+    "(?&".to_string() + &name.into() + ")"
+}
+
+pub fn recurse_into_nth_or_named_group(n_or_name: impl Into<String>) -> String {
+    "\\g<".to_string() + &n_or_name.into() + ">"
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -94,5 +122,46 @@ mod tests {
     #[test]
     fn test_branch_reset_group() {
         assert_eq!("(?|abc)", branch_reset_group("abc"));
+    }
+
+    #[test]
+    fn test_match_nth_group() {
+        assert_eq!("\\1", match_nth_group(1));
+    }
+
+    #[test]
+    fn test_match_named_group() {
+        assert_eq!("(?P=name)", match_named_group("name"));
+    }
+
+    #[test]
+    fn test_match_nth_or_named_group() {
+        assert_eq!(
+            "\\g{name_or_number}",
+            match_nth_or_named_group("name_or_number")
+        );
+    }
+
+    #[test]
+    fn test_recurse_into() {
+        assert_eq!("(?abc)", recurse_into("abc"));
+    }
+
+    #[test]
+    fn test_recurse_into_nth_group() {
+        assert_eq!("(?1)", recurse_into_nth_group(1));
+    }
+
+    #[test]
+    fn test_recurse_into_named_group() {
+        assert_eq!("(?&name)", recurse_into_named_group("name"))
+    }
+
+    #[test]
+    fn test_recurse_nth_or_named_group() {
+        assert_eq!(
+            "\\g<name_or_number>",
+            recurse_into_nth_or_named_group("name_or_number")
+        );
     }
 }
