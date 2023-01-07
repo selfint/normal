@@ -36,4 +36,12 @@ fn main() {
             )
             .then(NEWLINE)
     );
+
+    println!(
+        "{}",
+        "this is an exam"
+            .then_conditional(positive_lookahead("ple"), "ple exam\\.", "\\.")
+            .then(" that matches either example exam, or just exam")
+            .then(" followed by a dot")
+    )
 }
