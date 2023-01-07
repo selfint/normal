@@ -91,7 +91,13 @@ pub fn conditional(
     then: impl Into<String>,
     else_: impl Into<String>,
 ) -> String {
-    "(?(".to_string() + &if_.into() + ")" + &then.into() + "|" + &else_.into() + ")"
+    let if_: String = if_.into();
+
+    if if_.starts_with('(') && if_.ends_with(')') {
+        "(?".to_string() + &if_ + &then.into() + "|" + &else_.into() + ")"
+    } else {
+        "(?(".to_string() + &if_ + ")" + &then.into() + "|" + &else_.into() + ")"
+    }
 }
 
 #[cfg(test)]
@@ -211,6 +217,11 @@ mod tests {
 
     #[test]
     fn test_conditional() {
-        assert_eq!("(?(if)then|else)", conditional("if", "then", "else"))
+        assert_eq!("(?(if)then|else)", conditional("(if)", "then", "else"));
+    }
+
+    #[test]
+    fn test_conditional_inserts_parenthesis() {
+        assert_eq!("(?(if)then|else)", conditional("if", "then", "else"));
     }
 }
